@@ -8,7 +8,7 @@ import { db } from '@/lib/firebase';
 import { generateUPILink, generateQRCode } from '@/lib/upi';
 import { REGISTRATION_FEE, PER_EVENT_FEE, EVENTS } from '@/data/events';
 import { ArrowLeft, Loader2, QrCode, Smartphone } from 'lucide-react';
-import { RegistrationData } from '@/pages/Register';
+import { RegistrationData } from '@/types';
 import { toast } from 'sonner';
 
 interface Props {

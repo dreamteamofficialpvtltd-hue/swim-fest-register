@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Download, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { RegistrationData } from '@/pages/Register';
+import { RegistrationData } from '@/types';
 
 interface Props {
   data: RegistrationData;

@@ -7,6 +7,29 @@ export interface Event {
   fee: number;
 }
 
+export interface RegistrationData {
+  studentName: string;
+  fatherName: string;
+  occupation: string;
+  address: string;
+  phone: string;
+  email: string;
+  ageGroup: string;
+  selectedEvents: string[];
+  aadhaarFile?: File;
+  dobFile?: File;
+  aadhaarUrl?: string;
+  dobUrl?: string;
+  regID?: string;
+  registrationFee?: number;
+  eventsFee?: number;
+  paymentRef?: {
+    txnToken: string;
+    upiLink: string;
+    qrUrl: string;
+  };
+}
+
 export interface Registration {
   regID: string;
   studentName: string;

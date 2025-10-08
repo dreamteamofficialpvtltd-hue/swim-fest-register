@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AGE_GROUPS } from '@/data/events';
 import { ArrowRight } from 'lucide-react';
-import { RegistrationData } from '@/pages/Register';
+import { RegistrationData } from '@/types';
 
 interface Props {
   data: RegistrationData;

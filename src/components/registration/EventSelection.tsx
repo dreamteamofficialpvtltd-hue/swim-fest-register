@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { EVENTS, MAX_EVENTS_PER_PERSON, PER_EVENT_FEE } from '@/data/events';
 import { ArrowLeft, ArrowRight, AlertCircle } from 'lucide-react';
-import { RegistrationData } from '@/pages/Register';
+import { RegistrationData } from '@/types';
 
 interface Props {
   data: RegistrationData;

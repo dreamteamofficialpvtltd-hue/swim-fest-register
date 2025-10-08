@@ -3,33 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { RegistrationData } from '@/types';
 import ParticipantDetails from '@/components/registration/ParticipantDetails';
 import EventSelection from '@/components/registration/EventSelection';
 import DocumentUpload from '@/components/registration/DocumentUpload';
 import PaymentStep from '@/components/registration/PaymentStep';
 import ConfirmationStep from '@/components/registration/ConfirmationStep';
-
-export type RegistrationData = {
-  studentName: string;
-  fatherName: string;
-  occupation: string;
-  address: string;
-  phone: string;
-  email: string;
-  ageGroup: string;
-  selectedEvents: string[];
-  aadhaarFile?: File;
-  dobFile?: File;
-  aadhaarUrl?: string;
-  dobUrl?: string;
-  regID?: string;
-  paymentRef?: {
-    txnToken: string;
-    upiLink: string;
-    qrUrl: string;
-  };
-};
 
 const STEPS = [
   'Participant Details',

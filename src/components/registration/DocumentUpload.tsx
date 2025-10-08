@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { uploadToCloudinary, validateFile } from '@/lib/cloudinary';
 import { ArrowLeft, ArrowRight, Upload, CheckCircle, Loader2 } from 'lucide-react';
-import { RegistrationData } from '@/pages/Register';
+import { RegistrationData } from '@/types';
 import { toast } from 'sonner';
 
 interface Props {
