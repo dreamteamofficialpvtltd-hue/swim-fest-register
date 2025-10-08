@@ -1,5 +1,3 @@
-import QRCode from 'qrcode';
-
 const UPI_ID = '6303075443';
 const PAYEE_NAME = 'Killi Uma Mesherwari';
 
@@ -17,18 +15,7 @@ export const generateUPILink = (amount: number, regID: string): string => {
 };
 
 export const generateQRCode = async (upiLink: string): Promise<string> => {
-  try {
-    const qrDataUrl = await QRCode.toDataURL(upiLink, {
-      width: 300,
-      margin: 2,
-      color: {
-        dark: '#1e3a8a',
-        light: '#ffffff'
-      }
-    });
-    return qrDataUrl;
-  } catch (error) {
-    console.error('Error generating QR code:', error);
-    throw new Error('Failed to generate QR code');
-  }
+  const encoded = encodeURIComponent(upiLink);
+  // Use a lightweight external QR generator to avoid heavy client-side QR libraries
+  return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encoded}`;
 };

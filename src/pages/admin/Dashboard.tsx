@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { collection, query, getDocs, where, orderBy } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,10 +21,12 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
+type AdminRegistration = Partial<Registration> & { id: string };
+
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [registrations, setRegistrations] = useState<Registration[]>([]);
-  const [filteredRegistrations, setFilteredRegistrations] = useState<Registration[]>([]);
+  const [registrations, setRegistrations] = useState<AdminRegistration[]>([]);
+  const [filteredRegistrations, setFilteredRegistrations] = useState<AdminRegistration[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState<'all' | 'paid' | 'pending' | 'attended'>('all');
@@ -49,9 +51,9 @@ const Dashboard = () => {
       );
       const snapshot = await getDocs(q);
       const data = snapshot.docs.map(doc => ({
-        ...doc.data(),
+        ...(doc.data() as any),
         id: doc.id,
-      })) as Registration[];
+      })) as AdminRegistration[];
       
       setRegistrations(data);
       setFilteredRegistrations(data);
@@ -78,9 +80,9 @@ const Dashboard = () => {
     // Apply search
     if (searchQuery) {
       filtered = filtered.filter(r => 
-        r.studentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.regID.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.phone.includes(searchQuery)
+        (r.studentName ?? '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (r.regID ?? '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (r.phone ?? '').includes(searchQuery)
       );
     }
 
@@ -113,17 +115,17 @@ const Dashboard = () => {
     ];
 
     const rows = filteredRegistrations.map(r => [
-      r.regID,
-      r.studentName,
-      r.fatherName,
-      r.phone,
-      r.email || '',
-      r.ageGroup,
-      r.selectedEvents.join('; '),
-      r.totalAmount,
-      r.paymentStatus,
+      r.regID ?? r.id,
+      r.studentName ?? '',
+      r.fatherName ?? '',
+      r.phone ?? '',
+      r.email ?? '',
+      r.ageGroup ?? '',
+      (r.selectedEvents ?? []).join('; '),
+      r.totalAmount ?? '',
+      r.paymentStatus ?? '',
       r.attended ? 'Yes' : 'No',
-      r.createdAt
+      String(r.createdAt ?? '')
     ]);
 
     const csvContent = [
@@ -148,7 +150,7 @@ const Dashboard = () => {
     attended: registrations.filter(r => r.attended).length,
   };
 
-  const getPaymentStatusColor = (status: string) => {
+  const getPaymentStatusColor = (status?: string) => {
     switch (status) {
       case 'paid': return 'bg-success text-success-foreground';
       case 'pending': return 'bg-yellow-500 text-white';
